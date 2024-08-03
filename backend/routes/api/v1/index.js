@@ -1,9 +1,8 @@
 'use strict'
 
-const { createUser } = require("../../../controllers/userController");
+const { createUser, getUsers } = require('../../../controllers/userController');
 
 module.exports = async function (fastify, opts) {
-  fastify.post('/users', async function (request, reply) {
-    return createUser(fastify, request, reply);
-  });
+  fastify.post('/users', async (request, reply) => createUser(fastify, request, reply));
+  fastify.get('/users', async (request, reply)=> getUsers(fastify, request, reply));
 }
