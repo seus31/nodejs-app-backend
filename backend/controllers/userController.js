@@ -10,7 +10,12 @@ async function getUsers(fastify, req, reply) {
   reply.code(200).send(users);
 }
 
+async function getUser(fastify, req, reply) {
+  const user = await userService.getUserById(fastify, req.params.id);
+  reply.send(user);
+}
 module.exports = {
   createUser,
   getUsers,
+  getUser,
 };
