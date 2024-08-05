@@ -21,7 +21,12 @@ async function getUsers(fastify, queryData) {
   };
 }
 
+async function getUserById(fastify, id) {
+  return await fastify.models.User.findByPk(id);
+}
+
 module.exports = {
   createUser,
   getUsers,
+  getUserById,
 };
