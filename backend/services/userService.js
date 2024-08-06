@@ -1,3 +1,5 @@
+const { checkNullStringValue } = require("../utils/variableUtil");
+
 async function createUser(fastify, userData) {
   return fastify.models.User.create(userData);
 }
@@ -25,8 +27,23 @@ async function getUserById(fastify, id) {
   return await fastify.models.User.findByPk(id);
 }
 
+async function updateUser(fastify, id, userData) {
+  const user =  await fastify.models.User.findByPk(id);
+  if (checkNullStringValue(userData.name)) {
+    user.name = userData.name;
+  }
+
+  if (checkNullStringValue(userData.email)) {
+    user.email = userData.email;
+  }
+
+  await user.save();
+  return user;
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUserById,
+  updateUser,
 };

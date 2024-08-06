@@ -12,10 +12,17 @@ async function getUsers(fastify, req, reply) {
 
 async function getUser(fastify, req, reply) {
   const user = await userService.getUserById(fastify, req.params.id);
-  reply.send(user);
+  reply.code(200).send(user);
 }
+
+async function updateUser(fastify, req, reply) {
+  const user = await userService.updateUser(fastify, req.params.id, req.body);
+  reply.code(200).send(user);
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
+  updateUser,
 };
