@@ -20,9 +20,15 @@ async function updateUser(fastify, req, reply) {
   reply.code(200).send(user);
 }
 
+async function deleteUser(fastify, req, reply) {
+  await userService.deleteUser(fastify, req.params.id);
+  reply.code(204).send();
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
+  deleteUser,
 };
