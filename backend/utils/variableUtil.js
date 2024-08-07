@@ -1,3 +1,7 @@
-export function checkNullStringValue(value) {
+function checkNullStringValue(value) {
   return value !== null && value !== undefined && value !== '';
 }
+
+module.exports = {
+  checkNullStringValue,
+};

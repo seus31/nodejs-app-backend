@@ -1,6 +1,6 @@
 'use strict'
 
-const { createUser, getUsers, getUser, updateUser } = require('../../../controllers/userController');
+const { createUser, getUsers, getUser, updateUser, deleteUser } = require('../../../controllers/userController');
 
 module.exports = async function (fastify, opts) {
   fastify.post('/users', {
@@ -31,4 +31,5 @@ module.exports = async function (fastify, opts) {
     },
     handler: async (request, reply)=> updateUser(fastify, request, reply)
   });
+  fastify.delete('/users/:id', async (request, reply)=> deleteUser(fastify, request, reply));
 }

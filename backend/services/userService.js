@@ -41,9 +41,15 @@ async function updateUser(fastify, id, userData) {
   return user;
 }
 
+async function deleteUser(fastify, id) {
+  const user = await fastify.models.User.findByPk(id);
+  return await user.destroy();
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUserById,
   updateUser,
+  deleteUser,
 };
