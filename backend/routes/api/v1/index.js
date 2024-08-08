@@ -1,8 +1,12 @@
 'use strict'
 
 const { createUser, getUsers, getUser, updateUser, deleteUser } = require('../../../controllers/userController');
+const { createTask } = require('../../../controllers/taskController');
 
 module.exports = async function (fastify, opts) {
+  /**
+   * tasks CRUD API routes.
+   */
   fastify.post('/users', {
     schema: {
       body: {
@@ -32,4 +36,21 @@ module.exports = async function (fastify, opts) {
     handler: async (request, reply)=> updateUser(fastify, request, reply)
   });
   fastify.delete('/users/:id', async (request, reply)=> deleteUser(fastify, request, reply));
+
+  /**
+   * tasks CRUD API routes.
+   */
+  fastify.post('/tasks', {
+    schema: {
+      body: {
+        type: 'object',
+        required: ['taskName', 'status'],
+        properties: {
+          taskName: {type: 'string'},
+          status: {type: 'number'},
+        }
+      }
+    },
+    handler: async (request, reply) => createTask(fastify, request, reply)
+  });
 }
