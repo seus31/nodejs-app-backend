@@ -1,9 +1,5 @@
 const { checkNullStringValue } = require("../utils/variableUtil");
 
-async function createUser(fastify, userData) {
-  return fastify.models.User.create(userData);
-}
-
 async function getUsers(fastify, queryData) {
   const page = parseInt(queryData.page, 10) || 1;
   const limit = parseInt(queryData.limit, 10) || 10;
@@ -47,7 +43,6 @@ async function deleteUser(fastify, id) {
 }
 
 module.exports = {
-  createUser,
   getUsers,
   getUserById,
   updateUser,
