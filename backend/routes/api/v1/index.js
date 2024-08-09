@@ -1,13 +1,14 @@
 'use strict'
 
-const { createUser, getUsers, getUser, updateUser, deleteUser } = require('../../../controllers/userController');
+const { getUsers, getUser, updateUser, deleteUser } = require('../../../controllers/userController');
 const { createTask } = require('../../../controllers/taskController');
+const { register, login } = require('../../../controllers/authController');
 
 module.exports = async function (fastify, opts) {
   /**
-   * tasks CRUD API routes.
+   * Auth
    */
-  fastify.post('/users', {
+  fastify.post('/register', {
     schema: {
       body: {
         type: 'object',
@@ -19,10 +20,27 @@ module.exports = async function (fastify, opts) {
         }
       }
     },
-    handler: async (request, reply) => createUser(fastify, request, reply)
+    handler: async (request, reply) => register(fastify, request, reply)
   });
-  fastify.get('/users', async (request, reply)=> getUsers(fastify, request, reply));
-  fastify.get('/users/:id', async (request, reply)=> getUser(fastify, request, reply));
+  fastify.post('/login', {
+    schema: {
+      body: {
+        type: 'object',
+        required: ['email', 'password'],
+        properties: {
+          email: {type: 'string', format: 'email'},
+          password: {type: 'string'},
+        }
+      }
+    },
+    handler: async (request, reply) => login(fastify, request, reply)
+  });
+
+  /**
+   * tasks CRUD API routes.
+   */
+  fastify.get('/users', { preHandler: [fastify.authenticate] }, async (request, reply)=> getUsers(fastify, request, reply));
+  fastify.get('/users/:id', { preHandler: [fastify.authenticate] }, async (request, reply)=> getUser(fastify, request, reply));
   fastify.put('/users/:id', {
     schema: {
       body: {
@@ -33,9 +51,10 @@ module.exports = async function (fastify, opts) {
         }
       }
     },
+    preHandler: [fastify.authenticate],
     handler: async (request, reply)=> updateUser(fastify, request, reply)
   });
-  fastify.delete('/users/:id', async (request, reply)=> deleteUser(fastify, request, reply));
+  fastify.delete('/users/:id', { preHandler: [fastify.authenticate] }, async (request, reply)=> deleteUser(fastify, request, reply));
 
   /**
    * tasks CRUD API routes.
@@ -51,6 +70,7 @@ module.exports = async function (fastify, opts) {
         }
       }
     },
+    preHandler: [fastify.authenticate],
     handler: async (request, reply) => createTask(fastify, request, reply)
   });
 }
