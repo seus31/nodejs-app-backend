@@ -1,8 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-nav-logo',
   templateUrl: './nav-logo.component.html',
+  standalone: true,
+  imports: [
+    RouterLink,
+    NgClass
+  ],
   styleUrls: ['./nav-logo.component.scss']
 })
 export class NavLogoComponent {

@@ -1,8 +1,15 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import {NavContentComponent} from "./nav-content/nav-content.component";
+import {NavLogoComponent} from "./nav-logo/nav-logo.component";
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
+  standalone: true,
+  imports: [
+    NavContentComponent,
+    NavLogoComponent
+  ],
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {

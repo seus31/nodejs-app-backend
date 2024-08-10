@@ -1,12 +1,18 @@
-// angular import
 import { Component, Input } from '@angular/core';
 
-// project import
 import { NavigationItem } from '../../navigation';
+import { NgClass } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-nav-item',
   templateUrl: './nav-item.component.html',
+  standalone: true,
+  imports: [
+    NgClass,
+    RouterLinkActive,
+    RouterLink
+  ],
   styleUrls: ['./nav-item.component.scss']
 })
 export class NavItemComponent {

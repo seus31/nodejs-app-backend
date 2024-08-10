@@ -40,6 +40,7 @@ export class BreadcrumbsComponent {
   }
 
   filterNavigation(activeLink) {
+    activeLink = (activeLink === '/' || activeLink === '/dashboard') ? '/dashboard/home' : activeLink;
     let result: any;
     let title = 'Welcome';
     this.navigation.forEach(function (a) {
@@ -94,6 +95,6 @@ export class BreadcrumbsComponent {
       }
     });
     this.navigationList = result;
-    this.titleService.setTitle(title + ' | Datta Able Angular Template');
+    this.titleService.setTitle(title + ' | Node.js App');
   }
 }

@@ -3,15 +3,26 @@ import { Location } from '@angular/common';
 
 import { NavigationItem } from '../navigation';
 import { environment } from 'src/environments/environment';
+import { NavGroupComponent } from './nav-group/nav-group.component';
+import { NavCollapseComponent } from './nav-collapse/nav-collapse.component';
+import { NavItemComponent } from './nav-item/nav-item.component';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-nav-content',
   templateUrl: './nav-content.component.html',
+  standalone: true,
+  imports: [
+    NavGroupComponent,
+    NavCollapseComponent,
+    NavItemComponent,
+    NgScrollbar
+  ],
   styleUrls: ['./nav-content.component.scss']
 })
 export class NavContentComponent {
   // public props
-  title = 'Demo application for version numbering';
+  title = 'Navigation';
   currentApplicationVersion = environment.appVersion;
   @Output() onNavCollapsedMob = new EventEmitter();
   navigation: any;

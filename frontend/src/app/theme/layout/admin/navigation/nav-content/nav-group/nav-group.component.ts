@@ -2,10 +2,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { NavigationItem } from '../../navigation';
+import { NavCollapseComponent } from '../nav-collapse/nav-collapse.component';
+import { NavItemComponent } from '../nav-item/nav-item.component';
 
 @Component({
   selector: 'app-nav-group',
   templateUrl: './nav-group.component.html',
+  standalone: true,
+  imports: [
+    NavCollapseComponent,
+    NavItemComponent
+  ],
   styleUrls: ['./nav-group.component.scss']
 })
 export class NavGroupComponent implements OnInit {
