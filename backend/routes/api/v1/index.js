@@ -1,7 +1,7 @@
 'use strict'
 
 const { getUsers, getUser, updateUser, deleteUser } = require('../../../controllers/userController');
-const { createTask } = require('../../../controllers/taskController');
+const { createTask, getTasks } = require('../../../controllers/taskController');
 const { register, login } = require('../../../controllers/authController');
 
 module.exports = async function (fastify, opts) {
@@ -37,7 +37,7 @@ module.exports = async function (fastify, opts) {
   });
 
   /**
-   * tasks CRUD API routes.
+   * users CRUD API routes.
    */
   fastify.get('/users', { preHandler: [fastify.authenticate] }, async (request, reply)=> getUsers(fastify, request, reply));
   fastify.get('/users/:id', { preHandler: [fastify.authenticate] }, async (request, reply)=> getUser(fastify, request, reply));
@@ -59,6 +59,7 @@ module.exports = async function (fastify, opts) {
   /**
    * tasks CRUD API routes.
    */
+  fastify.get('/tasks', { preHandler: [fastify.authenticate]}, async (request, reply) => getTasks(fastify, request, reply));
   fastify.post('/tasks', {
     schema: {
       body: {
