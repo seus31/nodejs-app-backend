@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
+    environment:
+      NODE_ENV: development
     volumes:
       - ./backend:/app
       - nodejs-app-backend-node-modules:/app/node_modules
