@@ -9,7 +9,7 @@ const options = {}
 
 module.exports = async function (fastify, opts) {
   fastify.register(cors, {
-    origin: ['http://localhost:4200', 'http://localhost:4000'],
+    origin: ['http://localhost:4242', 'http://localhost:4200', 'http://localhost:4000', 'http://localhost:3999'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   });
@@ -24,6 +24,7 @@ module.exports = async function (fastify, opts) {
   fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'routes'),
     options: Object.assign({}, opts)
-  })}
+  })
+}
 
 module.exports.options = options
