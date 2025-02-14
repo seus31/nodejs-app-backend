@@ -8,8 +8,10 @@ const cors = require('@fastify/cors');
 const options = {}
 
 module.exports = async function (fastify, opts) {
+  const corsOrigins = process.env.CORS_ORIGIN.split(',')
+
   fastify.register(cors, {
-    origin: ['http://localhost:4242', 'http://localhost:4200', 'http://localhost:4000', 'http://localhost:3999'],
+    origin: corsOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   });
